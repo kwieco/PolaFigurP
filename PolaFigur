@@ -1,0 +1,122 @@
+using System;
+
+namespace Start
+{
+    class Program
+    {
+        /// <summary>
+        /// Punkt startowy.
+        /// </summary>
+        static void Main()
+        {
+            // start
+            ShowHeader();
+            Start();
+        }  
+        /// <summary>
+        /// Odpala i zapętla główną atrakcję programu.
+        /// </summary>
+        static void Start()
+        {
+            // zapętlenie w nieskończoność
+            while (true)
+            {
+                // pobieranie figury
+                string figure = GetFigure();
+
+                // pobieranie parametrów i obliczanie z nich pola w zależności od figury
+                switch (figure)
+                {
+                    case "prostokąt":
+                        {
+                            // pobieranie parametrów
+                            float[] parameters = GetParameters(new string[] { "bok A", "bok B" });
+
+                            // przekształcanie w celach przejrzystości
+                            float a = parameters[0];
+                            float b = parameters[1];
+
+                            // obliczanie pola
+                            float result = a * b;
+                            ShowResult(result);
+                        }
+                        break;
+                    case "trójkąt":
+                        {
+                            // pobieranie parametrów
+                            float[] parameters = GetParameters(new string[] { "bok A", "wysokość" });
+
+                            // przekształcanie w celach przejrzystości
+                            float a = parameters[0];
+                            float h = parameters[1];
+
+                            // obliczanie pola
+                            float result = 0.5f * a * h;
+                            ShowResult(result);
+                        }
+                        break;
+                    default:
+                        Console.WriteLine("BŁĄD: Ta figura nie jest zaimplementowana.");
+                        break;
+                }
+
+                // odstęp
+                Console.WriteLine();
+            }
+        }
+        /// <summary>
+        /// Wyświetla nagłówek programu.
+        /// </summary>
+        static void ShowHeader()
+        {
+            Console.WriteLine("Program obliczający pola figur");
+            Console.WriteLine();
+        }
+        /// <summary>
+        /// Prosi użytkownika o podanie figury.
+        /// </summary>
+        /// <returns>Zwraca figurę w postaci stringa.</returns>
+        static string GetFigure()
+        {
+            Console.WriteLine("Podaj figurę (prostokąt, trójkąt)");
+            return Console.ReadLine();
+        }
+        /// <summary>
+        /// Pobiera parametr od użytkownika.
+        /// </summary>
+        /// <param name="parameterName">Nazwa parametru.</param>
+        /// <returns>Zwraca parametr w postaci float'a.</returns>
+        static float GetParameter(string parameterName)
+        {
+            Console.WriteLine($"Podaj {parameterName}.");
+            return float.Parse(Console.ReadLine());
+        }
+        /// <summary>
+        /// Pobiera całą gammę parametrów od użytkownika.
+        /// </summary>
+        /// <param name="names">Nazwy parametrów.</param>
+        /// <returns>Zwraca tablicę floatów w której każdy float odpowiada każdemu parametrowi z names.</returns>
+        static float[] GetParameters(string[] names)
+        {
+            // inicjalizacja tablicy wyników
+            float[] output = new float[names.Length];
+
+            // pobieranie parametrów
+            for (int i = 0; i < names.Length; i++)
+            {
+                output[i] = GetParameter(names[i]);
+            }
+
+            // zwracanie parametrów
+            return output;
+        }
+        /// <summary>
+        /// Wyświetla wynik będący polem figury.
+        /// </summary>
+        /// <param name="result">Wynik.</param>
+        static void ShowResult(float result)
+        {
+            Console.WriteLine($"Pole wynosi {result}.");
+        }
+    }
+}
